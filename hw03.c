@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 typedef enum {
   NAME_ONLY = 0,
@@ -9,17 +10,32 @@ typedef enum {
 typedef struct {
   char *first_name;
   char *last_name;
-  // TODO: add fields here for major and year
+  char *major;
+  int year;
+  // TODO: add fields here for major and year --Fertig
 } Student;
 
-void print_student(Mode m, Student s) {
+ void print_student(Mode m, Student s) {
   switch (m) {
     case NAME_ONLY:
       printf("%s %s\n", s.first_name, s.last_name);
       break;
-  // TODO: handle other cases
+      
+    case MAJOR_AND_NAME:
+      printf("%s %s %s\n", s.major, s.first_name, s.last_name);
+      break;
+
+    case YEAR_AND_NAME:
+      printf("%d %s %s\n", s.year, s.first_name, s.last_name);
+      break;
+      
+  // TODO: handle other cases --Fertig
   }
 }
+
+//atof(argv[#number input]);
+
+
 
 /*
 argv[1] will be the Mode integer.
@@ -28,16 +44,23 @@ argv[6]-argv[9], if present will be student info for a second student in the sam
 You will need to check argc to determine the number of students passed at runtime.
 The fields are all strings (char[]), except year is a number (int)
 */
+
 int main(int argc, char **argv) {
+
+int userMode;
+userMode = atoi(argv[1]);
+
+for(int i=2;i<sizeof(argv)+1 ;i+=4)
+{
+Student s;
+s.first_name = argv[i];
+s.last_name = argv[i+1];
+s.major =argv[i+2];
+s.year = atoi(argv[i+3]);
+print_student(userMode, s);
+}
+
   // TODO: parse argv to populate student structs 
   // for now, here's two hardcoded students:
-  Student s1, s2;
-  s1.first_name = "Julia";
-  s1.last_name = "A";
-  s2.first_name = "Peter";
-  s2.last_name = "Cooper";
-  
-  print_student(NAME_ONLY, s1);
-  print_student(NAME_ONLY, s2);
   return 0;
 }
