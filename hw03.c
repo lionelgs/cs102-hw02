@@ -50,7 +50,7 @@ int main(int argc, char **argv) {
 int userMode;
 userMode = atoi(argv[1]);
 
-for(int i=2;i<sizeof(argv)+1 ;i+=4)
+for(int i=2;i<argc ;i+=4)
 {
 Student s;
 s.first_name = argv[i];
